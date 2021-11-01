@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Email Automation w/ Python :: Dhruva Srinivas</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Programtically sending emails with Python" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://carrotfarmer.github.io/posts/email_automation_with_python/" />
+
+
+
+
+<link rel="stylesheet" href="https://carrotfarmer.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://carrotfarmer.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://carrotfarmer.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://carrotfarmer.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Email Automation w/ Python">
+<meta property="og:description" content="Programtically sending emails with Python" />
+<meta property="og:url" content="https://carrotfarmer.github.io/posts/email_automation_with_python/" />
+<meta property="og:site_name" content="Dhruva Srinivas" />
+
+  
+    <meta property="og:image" content="https://carrotfarmer.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2020-09-23 05:20:41.42 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Dhruva Srinivas
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="https://dev.to/carrotfarmer">DEV</a></li>
+        
+      
+        
+          <li><a href="https://github.com/carrotfarmer">GitHub</a></li>
+        
+      
+        
+          <li><a href="https://stackoverflow.com/users/13561579/staticvoid17">StackOverflow</a></li>
+        
+      
+        
+          <li><a href="https://youtube.com/c/iqube">YouTube</a></li>
+        
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="https://dev.to/carrotfarmer">DEV</a></li>
+      
+    
+      
+        <li><a href="https://github.com/carrotfarmer">GitHub</a></li>
+      
+    
+      
+        <li><a href="https://stackoverflow.com/users/13561579/staticvoid17">StackOverflow</a></li>
+      
+    
+      
+        <li><a href="https://youtube.com/c/iqube">YouTube</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://carrotfarmer.github.io/posts/email_automation_with_python/">Email Automation w/ Python</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2020-09-23
+        
+          [Updated: 2020-09-23]
+        
+      </span>
+    
+    
+      <span class="post-author">:: Dhruva Srinivas</span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://carrotfarmer.github.io/tags/automation/">automation</a>&nbsp;
+    
+    #<a href="https://carrotfarmer.github.io/tags/python/">python</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>Hi! In this post I&rsquo;m gonna show you guys how to send emails using Python! In this post I&rsquo;m using <a href="https://mail.google.com">Gmail</a>, so make sure you&rsquo;ve set up a Google account to follow through this tutorial.</p>
+<p>This post is based on a tutorial I made on <a href="https://www.youtube.com/watch?v=l_4ZzS24g0I">YouTube</a></p>
+<h1 id="creating-a-bot-email-account">Creating a bot email account<a href="#creating-a-bot-email-account" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>First, we&rsquo;ll have to create a new bot account through which our bot can send the email and I recommend you to not use your personal account for this. Creating a new Google account is pretty straight-forward so I&rsquo;m not gonna go over that. Before we proceed though, we need to enable a setting in our Google account to make this whole thing work.</p>
+<ul>
+<li>Log into your bot account</li>
+<li>Turn on <a href="https://myaccount.google.com/lesssecureapps">Less secure app access</a><br>
+We do this because the Python module which we&rsquo;re gonna use to send the email is not verified, and Google won&rsquo;t let such apps access you&rsquo;re Google account.
+Now we&rsquo;re all set for coding!</li>
+</ul>
+<h1 id="the-modules-we-need">The Modules we need<a href="#the-modules-we-need" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>There are some modules we can use to help us achieve our goal. All of these modules are built-in with your Python installation and you don&rsquo;t need to install anything separately with <code>pip</code>.</p>
+<ul>
+<li><strong><code>smtplib</code></strong>: smtplib allows us to connect to <strong>SMTP</strong> (Simple Mail Transfer Protocol) servers. Email providers like Gmail, Outlook and Yahoo uses SMTP.</li>
+<li><strong><code>email</code></strong>: This module contains a class called <code>EmailMessage</code> which will help us compose our email by configuring the subject, body etc.</li>
+</ul>
+<h1 id="composing-the-email">Composing the email<a href="#composing-the-email" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>First let&rsquo;s import all the stuff mentioned in the previous section.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> smtplib
+<span style="color:#f92672">from</span> email.message <span style="color:#f92672">import</span> EmailMessage
+</code></pre></div><p>Now we&rsquo;re gonna instantiate the EmailMessage class and create the structure of our email.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">email <span style="color:#f92672">=</span> EmailMessage()
+
+email[<span style="color:#e6db74">&#39;from&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Email Bot&#39;</span> <span style="color:#75715e"># Name of the sender</span>
+email[<span style="color:#e6db74">&#39;to&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;youraccount@gmail.com&#39;</span> <span style="color:#75715e"># Email address of the receiver</span>
+email[<span style="color:#e6db74">&#39;subject&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Automated Message sent with Python&#34;</span> <span style="color:#75715e"># Subject of the email</span>
+
+<span style="color:#75715e"># Body of the email</span>
+email<span style="color:#f92672">.</span>set_content(<span style="color:#e6db74">&#34;This is an automated email sent using Python!&#34;</span>)
+</code></pre></div><h1 id="sending-the-email">Sending the email<a href="#sending-the-email" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># If you&#39;re using outlook replace the host with smtp.outlook.com</span>
+<span style="color:#75715e"># The port 587 is the de-facto for emails</span>
+<span style="color:#66d9ef">with</span> smptlib<span style="color:#f92672">.</span>SMTP(host<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;smtp.gmail.com&#34;</span>, port<span style="color:#f92672">=</span><span style="color:#ae81ff">587</span>) <span style="color:#66d9ef">as</span> smtp:
+    smtp<span style="color:#f92672">.</span>ehlo() <span style="color:#75715e"># ehlo (Extended HELO) is a command sent by an email server to identify itself when connecting to another email server to start the process of sending an email. </span>
+    smtp<span style="color:#f92672">.</span>starttls() <span style="color:#75715e"># TLS (Transport Layer Security) encrypts data sent over the Internet for security </span>
+    smtp<span style="color:#f92672">.</span>login(<span style="color:#e6db74">&#34;ebot1042@gmail.com&#34;</span>, <span style="color:#e6db74">&#39;password&#39;</span>) <span style="color:#75715e"># Use your bot&#39;s email credentials to login</span>
+    smtp<span style="color:#f92672">.</span>send_message(email) <span style="color:#75715e"># This finally sends our email using our email variable as the message</span>
+</code></pre></div><h1 id="final-code">Final Code<a href="#final-code" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> smtplib
+<span style="color:#f92672">from</span> email.message <span style="color:#f92672">import</span> EmailMessage
+
+email <span style="color:#f92672">=</span> EmailMessage()
+
+email[<span style="color:#e6db74">&#39;from&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Name of sender\s account&#39;</span>
+email[<span style="color:#e6db74">&#39;to&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;receiver@email.com&#39;</span>
+email[<span style="color:#e6db74">&#39;subject&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Automated Message sent with Python&#39;</span>
+
+email<span style="color:#f92672">.</span>set_content(<span style="color:#e6db74">&#39;This is an automated email sent using python!!&#39;</span>)
+
+<span style="color:#66d9ef">with</span> smtplib<span style="color:#f92672">.</span>SMTP(host<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;smtp.gmail.com&#34;</span>, port<span style="color:#f92672">=</span><span style="color:#ae81ff">587</span>) <span style="color:#66d9ef">as</span> smtp:
+	smtp<span style="color:#f92672">.</span>ehlo()
+	smtp<span style="color:#f92672">.</span>starttls()
+	smtp<span style="color:#f92672">.</span>login(<span style="color:#e6db74">&#39;sender@gmail.com&#39;</span>, <span style="color:#e6db74">&#39;senderspassword&#39;</span>)
+	smtp<span style="color:#f92672">.</span>send_message(email)
+</code></pre></div><h1 id="adding-attachments">Adding attachments<a href="#adding-attachments" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>We can also add attachments to our e-mails with an extra line of code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">email<span style="color:#f92672">.</span>add_attachment(open(<span style="color:#e6db74">&#34;attachment.txt&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>)<span style="color:#f92672">.</span>read(), filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;attachment.txt&#34;</span>)
+</code></pre></div><p>Here we are opening our attached file in <strong>read</strong> mode because we&rsquo;re not making any changes to its contents. And the filename is set to our attachment file&rsquo;s name. That&rsquo;s basically it!</p>
+<p><strong>NOTE</strong>: You <strong>have</strong> to set the content of the email <strong>before</strong> adding the file attachment code!</p>
+<p>Thanks for reading, I&rsquo;ll catch you guys in my next post!</p>
+
+      </div></div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>&copy; Dhruva Srinivas 2021</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://carrotfarmer.github.io/assets/main.js"></script>
+<script src="https://carrotfarmer.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

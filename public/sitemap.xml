@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://carrotfarmer.github.io/tags/computerscience/</loc>
+    <lastmod>2021-05-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://carrotfarmer.github.io/</loc>
+    <lastmod>2021-05-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://carrotfarmer.github.io/posts/</loc>
+    <lastmod>2021-05-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://carrotfarmer.github.io/tags/programming/</loc>
+    <lastmod>2021-05-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://carrotfarmer.github.io/tags/python/</loc>
+    <lastmod>2021-05-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://carrotfarmer.github.io/tags/</loc>
+    <lastmod>2021-05-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://carrotfarmer.github.io/posts/fibonacci_sequence/</loc>
+    <lastmod>2021-05-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://carrotfarmer.github.io/tags/automation/</loc>
+    <lastmod>2020-09-23T05:20:41+00:00</lastmod>
+  </url><url>
+    <loc>https://carrotfarmer.github.io/posts/email_automation_with_python/</loc>
+    <lastmod>2020-09-23T05:20:41+00:00</lastmod>
+  </url><url>
+    <loc>https://carrotfarmer.github.io/about/</loc>
+  </url><url>
+    <loc>https://carrotfarmer.github.io/categories/</loc>
+  </url>
+</urlset>
