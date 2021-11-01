@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>programming on Dhruva Srinivas</title>
+    <link>https://carrotfarmer.github.io/tags/programming/</link>
+    <description>Recent content in programming on Dhruva Srinivas</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Dhruva Srinivas 2021</copyright>
+    <lastBuildDate>Tue, 11 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://carrotfarmer.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Fibonacci Sequence</title>
+      <link>https://carrotfarmer.github.io/posts/fibonacci_sequence/</link>
+      <pubDate>Tue, 11 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://carrotfarmer.github.io/posts/fibonacci_sequence/</guid>
+      <description>Generating a Fibonacci sequence is an extremely popular programming question, which might seem intimidating at first but it&amp;rsquo;s actually quite simple.
+For those of you boomers who don&amp;rsquo;t know what a Fibonacci sequence is:
+ In mathematics, the Fibonacci numbers, commonly denoted Fₙ, form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is, and for n &amp;gt; 1.</description>
+      <content>&lt;p&gt;Generating a Fibonacci sequence is an extremely popular programming question, which might seem intimidating at first but it&amp;rsquo;s actually quite simple.&lt;/p&gt;
+&lt;p&gt;For those of you boomers who don&amp;rsquo;t know what a Fibonacci sequence is:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In mathematics, the Fibonacci numbers, commonly denoted Fₙ, form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is, and for n &amp;gt; 1.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Fibonacci_number&#34;&gt;Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So what we&amp;rsquo;re gonna do is programmatically generate an N length of Fibonacci numbers.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Enter the Fibonacci length: 8
+[0, 1, 1, 2, 3, 5, 8, 13]
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;visualizing-a-way-to-solve-the-problem&#34;&gt;Visualizing a way to solve the problem&lt;/h1&gt;
+&lt;p&gt;A good approach to solving these questions would be to break &amp;lsquo;em up into little tidbits and understanding the problem and then implement that in code. Here, these are the steps&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Get user input for the length of the Fibonacci sequence.&lt;/li&gt;
+&lt;li&gt;Set initial values of the sequence. (This is always 0 and 1)&lt;/li&gt;
+&lt;li&gt;Create a loop and check if the length of the sequence is equal to the number the user has specified. If it is, then exit the loop. If it isn&amp;rsquo;t generate the Fibonacci number and append that to the list of already generated Fibonacci numbers.&lt;/li&gt;
+&lt;li&gt;And finally, print the Fibonacci sequence.
+But, how in the world do you generate the Fibonacci number??&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So if you noticed, Fibonacci numbers are basically the sum of the previous two numbers in the sequence. And if you didn&amp;rsquo;t, well that just sucks. Anyway, what we basically wanna do is&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Access the last two elements of the sequence/list&lt;/li&gt;
+&lt;li&gt;Add &amp;lsquo;em up&lt;/li&gt;
+&lt;li&gt;Append them to the sequence/list&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;WOAH, so that&amp;rsquo;s it? Yup.
+Let&amp;rsquo;s get started coding!&lt;/p&gt;
+&lt;h1 id=&#34;solving-the-problem&#34;&gt;Solving the problem&lt;/h1&gt;
+&lt;p&gt;So, I&amp;rsquo;m gonna do this in Python, you can choose whatever language you want, the concept is dead simple and you should be able to implement this in any language.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;First, we wanna get the user input, so that&amp;rsquo;s nice &amp;amp; straightforward.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# inp is short for input&lt;/span&gt;
+inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter the length of the Fibonacci sequence: &amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Now we&amp;rsquo;ll create a function that generates the Fibonacci sequence:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter the length of the Fibonacci sequence: &amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fib&lt;/span&gt;(fibonacci_length):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;We can create a list and populate it with the default values of a Fibonacci sequence:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter the length of the Fibonacci sequence: &amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fib&lt;/span&gt;(fibonacci_length):
+    fibonacci_list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Now, we&amp;rsquo;re gonna create a &lt;code&gt;while&lt;/code&gt; loop which checks if the Fibonacci length is equal to the length of the list &lt;code&gt;fibonacci_list&lt;/code&gt; or not.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter the length of the Fibonacci sequence: &amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fib&lt;/span&gt;(fibonacci_length):
+    fibonacci_list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; fibonacci_length:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;We&amp;rsquo;re now going to access the last two values of &lt;code&gt;fibonacci_list&lt;/code&gt; by grabbing their indexes:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter the length of the Fibonacci sequence: &amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fib&lt;/span&gt;(fibonacci_length):
+    fibonacci_list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; fibonacci_length:
+        second_last_index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+        last_index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Now we can append the sum of the last two values of the list to &lt;code&gt;fibonacci_list&lt;/code&gt; and print the whole list:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter the length of the Fibonacci sequence: &amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fib&lt;/span&gt;(fibonacci_length):
+    fibonacci_list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; fibonacci_length:
+        second_last_index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+        last_index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+        fibonacci_list&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(fibonacci_list[second_last_index] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; fibonacci_list[last_index])
+    print(fibonacci_list)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;And finally, we&amp;rsquo;re gonna call the &lt;code&gt;fib&lt;/code&gt; function and pass the user input (&lt;code&gt;inp&lt;/code&gt;) variable to the &lt;code&gt;fibonacci_length&lt;/code&gt; parameter:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter the length of the Fibonacci sequence: &amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fib&lt;/span&gt;(fibonacci_length):
+    fibonacci_list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; fibonacci_length:
+        second_last_index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+        last_index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+        fibonacci_list&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(fibonacci_list[second_last_index] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; fibonacci_list[last_index])
+    print(fibonacci_list)
+
+fib(inp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;edit&#34;&gt;Edit&lt;/h1&gt;
+&lt;p&gt;Suggested by &lt;a href=&#34;https://dev.to/robinloche&#34;&gt;@robin-loche&lt;/a&gt;, this code can be shortened by making the following changes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter the length of the Fibonacci sequence: &amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fib&lt;/span&gt;(fibonacci_length):
+    fibonacci_list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; len(fibonacci_list) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; fibonacci_length:
+        fibonacci_list&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(fibonacci_list[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; fibonacci_list[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;])
+    print(fibonacci_list)
+
+fib(inp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can use negative indexing in Python to access the elements of the array from the last position. What I mean is&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# In this array,&lt;/span&gt;
+[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;apple&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lenovo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;asus&amp;#34;&lt;/span&gt;]
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;asus&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; has the index of [&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This greatly reduces the amount code in the loop and I suggest you all to do it this way.&lt;/p&gt;
+&lt;p&gt;And that&amp;rsquo;s all there is to it!
+If you have coded this in a different programming language please share it down below :)
+Thanks for reading, I&amp;rsquo;ll catch you guys in my next post!&lt;/p&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>
