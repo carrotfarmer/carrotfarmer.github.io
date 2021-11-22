@@ -7,7 +7,297 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Dhruva Srinivas 2021</copyright>
-    <lastBuildDate>Tue, 11 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://carrotfarmer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Nov 2021 22:34:14 +0530</lastBuildDate><atom:link href="https://carrotfarmer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vuex With Class Components</title>
+      <link>https://carrotfarmer.github.io/posts/vuex-with-class-components/</link>
+      <pubDate>Sun, 21 Nov 2021 22:34:14 +0530</pubDate>
+      
+      <guid>https://carrotfarmer.github.io/posts/vuex-with-class-components/</guid>
+      <description>Helloooo, in this post I&amp;rsquo;ll show you how you can use vuex with TypeScript and class-components.
+Bookmark this post on DEV.to!
+Disclaimer In this tutorial I will be using:
+ Vue 2 Vuex ^3.6.2 TypeScript 4.5  What we&amp;rsquo;re gonna build Creating the project Now let&amp;rsquo;s start coding! First we have to create our Vue.js app. To do that run:
+vue create vuex-counter and make sure you include Vuex, TypeScript and Use class components in your options.</description>
+      <content>&lt;p&gt;Helloooo, in this post I&amp;rsquo;ll show you how you can use &lt;a href=&#34;https://vuex.vuejs.org&#34;&gt;vuex&lt;/a&gt; with &lt;strong&gt;TypeScript&lt;/strong&gt; and &lt;a href=&#34;https://class-component.vuejs.org&#34;&gt;class-components&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Bookmark this post on &lt;a href=&#34;https://dev.to/carrotfarmer/vuex-with-class-components-5fc1&#34;&gt;DEV.to&lt;/a&gt;!&lt;/p&gt;
+&lt;h1 id=&#34;disclaimer&#34;&gt;Disclaimer&lt;/h1&gt;
+&lt;p&gt;In this tutorial I will be using:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Vue 2&lt;/li&gt;
+&lt;li&gt;Vuex ^3.6.2&lt;/li&gt;
+&lt;li&gt;TypeScript 4.5&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;what-were-gonna-build&#34;&gt;What we&amp;rsquo;re gonna build&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/D3VxooA.mp4&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;creating-the-project&#34;&gt;Creating the project&lt;/h1&gt;
+&lt;p&gt;Now let&amp;rsquo;s start coding! First we have to create our Vue.js app. To do that run:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;vue&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;create&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;vuex&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;counter&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and make sure you include &lt;code&gt;Vuex&lt;/code&gt;, &lt;code&gt;TypeScript&lt;/code&gt; and &lt;code&gt;Use class components&lt;/code&gt; in your options.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/X9kphe6.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/an0rvor.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/S3R6Pug.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/Gm322CF.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;creating-the-store&#34;&gt;Creating the store&lt;/h1&gt;
+&lt;p&gt;Let&amp;rsquo;s now create the Vuex store. The store will consist of a singular state which will contain the main count from where we&amp;rsquo;ll derive the incremented and decremented ones.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;src/store/index.ts&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vue&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vuex&amp;#34;&lt;/span&gt;;
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt;);
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Store&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;1&lt;/span&gt;,
+  },
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;getters&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutations&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;actions&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;module&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;getters&#34;&gt;Getters&lt;/h2&gt;
+&lt;p&gt;Using the &lt;code&gt;count&lt;/code&gt; variable in the state we will use getters to fetch the current count, the incremented count and the decremented count. Before we do that though, we&amp;rsquo;ll first create a type for our state so that
+we can explicitly type out the arguments required for our getters.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;src/types.ts&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;interface&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;StateType&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;src/store/index.ts&lt;/code&gt;
+Now we can use this type to create our getters.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vue&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vuex&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;StateType&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@/types&amp;#34;&lt;/span&gt;;
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt;);
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Store&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;1&lt;/span&gt;,
+  },
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;getters&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;currentCount&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;;
+    },
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;previousCount&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    },
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;nextCount&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    },
+  },
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutations&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;actions&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;module&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;mutations-and-actions&#34;&gt;Mutations and Actions&lt;/h2&gt;
+&lt;p&gt;Now let&amp;rsquo;s create some simple mutations to mutate the &lt;code&gt;count&lt;/code&gt; variable of the state. This will cause
+&lt;code&gt;nextCount&lt;/code&gt; and &lt;code&gt;previousCount&lt;/code&gt; to update accordingly.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;src/store/index.ts&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vue&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vuex&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;StateType&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@/types&amp;#34;&lt;/span&gt;;
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt;);
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Store&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;1&lt;/span&gt;,
+  },
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;getters&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;currentCount&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;;
+    },
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;previousCount&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    },
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;nextCount&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    },
+  },
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutations&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;increment&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;;
+    },
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;decrement&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;--&lt;/span&gt;;
+    },
+  },
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;actions&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;module&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here we are returning &lt;code&gt;void&lt;/code&gt; because apart from mutating the &lt;code&gt;count&lt;/code&gt; value we are not returning anything.
+Of course, now we need to run these mutations so lets create some actions for that.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;src/store/index.ts&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vue&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt;, { &lt;span style=&#34;color:#a6e22e&#34;&gt;ActionContext&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vuex&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;StateType&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@/types&amp;#34;&lt;/span&gt;;
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt;);
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vuex&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Store&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;1&lt;/span&gt;,
+  },
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;getters&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;currentCount&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;;
+    },
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;previousCount&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    },
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;nextCount&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt; {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    },
+  },
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutations&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;increment&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;;
+    },
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;decrement&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;StateType&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;--&lt;/span&gt;;
+    },
+  },
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;actions&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;increment&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;ActionContext&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;StateType&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;StateType&lt;/span&gt;&amp;gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;commit&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;increment&amp;#34;&lt;/span&gt;);
+    },
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;decrement&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;ActionContext&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;StateType&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;StateType&lt;/span&gt;&amp;gt;)&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;commit&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;decrement&amp;#34;&lt;/span&gt;);
+    },
+  },
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;module&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Alrighty, now we&amp;rsquo;re done with the store and we can move onto using these little bits of state in our UI!&lt;/p&gt;
+&lt;h1 id=&#34;using-the-store-in-our-component&#34;&gt;Using the store in our component&lt;/h1&gt;
+&lt;p&gt;I have a created a component called &lt;code&gt;Counter&lt;/code&gt; and set it up like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;vue&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;counter&lt;/span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;lt&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;
+      &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;gt&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+  &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ts&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;Component&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vue-property-decorator&amp;#34;&lt;/span&gt;;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;@Component&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Counter&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;extends&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; {}
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;style&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;scoped&lt;/span&gt;&amp;gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;h3&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;40px&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;span style=&#34;color:#a6e22e&#34;&gt;ul&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;style&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;none&lt;/span&gt;;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;padding&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;0&lt;/span&gt;;
+}
+&lt;span style=&#34;color:#a6e22e&#34;&gt;li&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;display&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;inline&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;block&lt;/span&gt;;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;px&lt;/span&gt;;
+}
+&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;color&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;b983&lt;/span&gt;;
+}
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;style&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now normally to access our store we would so something like:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;$store&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;// etc..
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;But Vuex&amp;rsquo;s TypeScript support is kinda jank and it doesn&amp;rsquo;t work well with class components. So we will have
+to add a library called &lt;code&gt;vuex-class&lt;/code&gt; to use our store in our component.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;yarn add vuex-class
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;or&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;npm install vuex-class
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So the way &lt;code&gt;vuex-class&lt;/code&gt; works is you have an associated decorator for a getter, mutation etc. and we pass
+that decorator to a variable with the same name as the name of the mutation or getter in the store. For example the way we would call our &lt;code&gt;currentCount&lt;/code&gt; getter is:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;src/components/Counter.vue&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ts&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;Component&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vue-property-decorator&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;Getter&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vuex-class&amp;#34;&lt;/span&gt;;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;@Component&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Counter&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;extends&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// getters
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;@Getter&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;currentCount&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt;;
+}
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And we can call this &lt;code&gt;currentCount&lt;/code&gt; property in our &lt;code&gt;template&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;src/components/Counter.vue&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;vue&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;counter&lt;/span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;lt&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;
+      {{ &lt;span style=&#34;color:#a6e22e&#34;&gt;currentCount&lt;/span&gt; }}
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;gt&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+  &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we can do the same for the other getters:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;src/components/Counter.vue&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;vue&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;counter&lt;/span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;lt&lt;/span&gt;; {{ &lt;span style=&#34;color:#a6e22e&#34;&gt;previousCount&lt;/span&gt; }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;
+      {{ &lt;span style=&#34;color:#a6e22e&#34;&gt;currentCount&lt;/span&gt; }}
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;gt&lt;/span&gt;; {{ &lt;span style=&#34;color:#a6e22e&#34;&gt;nextCount&lt;/span&gt; }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+  &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ts&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;Component&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vue-property-decorator&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;Getter&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vuex-class&amp;#34;&lt;/span&gt;;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;@Component&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Counter&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;extends&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// getters
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;@Getter&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;currentCount&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt;;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;@Getter&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;previousCount&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt;;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;@Getter&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nextCount&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt;;
+}
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can use the same syntax to include our actions using &lt;code&gt;@Action&lt;/code&gt;. Then we will be able to use it as
+the buttons&#39; &lt;code&gt;@click&lt;/code&gt; handlers.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;src/components/Counter.vue&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ts&#34; data-lang=&#34;ts&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;vue&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;counter&lt;/span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;click&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;decrement&amp;#34;&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;lt&lt;/span&gt;; {{ &lt;span style=&#34;color:#a6e22e&#34;&gt;previousCount&lt;/span&gt; }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;
+      {{ &lt;span style=&#34;color:#a6e22e&#34;&gt;currentCount&lt;/span&gt; }}
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;click&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;increment&amp;#34;&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;gt&lt;/span&gt;; {{ &lt;span style=&#34;color:#a6e22e&#34;&gt;nextCount&lt;/span&gt; }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;button&lt;/span&gt;&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+  &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ts&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;StateType&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@/types&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;Component&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vue-property-decorator&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;ActionContext&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vuex&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;Getter&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Action&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vuex-class&amp;#34;&lt;/span&gt;;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;@Component&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Counter&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;extends&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// getters
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;@Getter&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;currentCount&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt;;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;@Getter&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;previousCount&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt;;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;@Getter&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nextCount&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;number&lt;/span&gt;;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// actions
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;@Action&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;increment&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ActionContext&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;StateType&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;StateType&lt;/span&gt;&amp;gt;;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;@Action&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;decrement&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ActionContext&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;StateType&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;StateType&lt;/span&gt;&amp;gt;;
+}
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And that&amp;rsquo;s it! You can use the same procedure to use them in bigger/more complex stores too! &lt;code&gt;vuex-class&lt;/code&gt; also has support for modules and you can use them with namespaces.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll catch you guys in my next post!&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>The Fibonacci Sequence</title>
       <link>https://carrotfarmer.github.io/posts/fibonacci_sequence/</link>
